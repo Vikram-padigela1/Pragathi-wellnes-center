@@ -1,0 +1,13 @@
+{
+  "name": "pragathi-wellness-centre",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Website and lightweight backend for Pragathi's Wellness Centre.",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node --watch server.js"
+  }
+}
