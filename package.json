@@ -1,13 +1,22 @@
 {
   "name": "pragathi-wellness-centre",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "private": true,
-  "description": "Website and lightweight backend for Pragathi's Wellness Centre.",
+  "description": "MERN website for Pragathi's Wellness Centre.",
+  "workspaces": [
+    "client",
+    "server"
+  ],
+  "scripts": {
+    "dev": "concurrently \"npm run dev --workspace server\" \"npm run dev --workspace client\"",
+    "build": "npm run build --workspace client",
+    "postinstall": "npm run build",
+    "start": "npm run start --workspace server"
+  },
+  "devDependencies": {
+    "concurrently": "^9.0.1"
+  },
   "engines": {
     "node": ">=20"
-  },
-  "scripts": {
-    "start": "node server.js",
-    "dev": "node --watch server.js"
   }
 }

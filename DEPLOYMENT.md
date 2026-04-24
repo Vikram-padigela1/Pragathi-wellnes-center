@@ -1,47 +1,72 @@
 # Deployment Guide
 
-This project is ready to deploy as a real website with a backend.
+This project is ready to deploy as a real MERN website.
 
-## Recommended: Railway
+## Recommended setup
 
-Railway is the best fit for the current setup because the enquiry form writes to a file, and Railway volumes can persist that data when mounted to the app directory.
+- Frontend: React build served by Express
+- Backend: Node.js + Express
+- Database: MongoDB Atlas
+- Hosting: Railway, Render, or any Node-friendly host
 
-### Deploy steps
+## Recommended database
 
-1. Push this project to GitHub.
-2. In Railway, create a new project and choose `Deploy from GitHub repo`.
-3. Select this repository and let Railway build it.
-4. In the service settings, generate a public Railway domain.
-5. Add a volume and mount it to `/app/data`.
-6. Set these variables:
+Use `MongoDB Atlas` for production. It matches the MERN stack, works cleanly with Mongoose, and avoids the reliability problems of file-based storage.
+
+## Deploy flow
+
+1. Push this repository to GitHub.
+2. Create a MongoDB Atlas cluster.
+3. Create a database user and whitelist the host IPs you need.
+4. Copy the Atlas connection string into `MONGODB_URI`.
+5. Create a Gmail App Password for `pragathiwellnesscentre@gmail.com`.
+6. Deploy this repository to Railway or Render.
+7. Set environment variables on the host:
 
 ```text
+MONGODB_URI=your-atlas-connection-string
+NODE_ENV=production
+PORT=5001
+CLIENT_URL=https://your-live-domain.com
 PUBLIC_SITE_URL=https://your-live-domain.com
 BUSINESS_STREET_ADDRESS=Your full street address
 BUSINESS_DISPLAY_ADDRESS=Your full display address
-DATA_DIR=/app/data
+OWNER_NOTIFICATION_EMAIL=pragathiwellnesscentre@gmail.com
+SMTP_HOST=smtp.gmail.com
+SMTP_PORT=465
+SMTP_SECURE=true
+SMTP_USER=pragathiwellnesscentre@gmail.com
+SMTP_PASS=your-gmail-app-password
+SMTP_FROM=pragathiwellnesscentre@gmail.com
+VITE_PUBLIC_SITE_URL=https://your-live-domain.com
+VITE_PUBLIC_OG_IMAGE=https://your-live-domain.com/assets/logo.jpg
+VITE_BUSINESS_STREET_ADDRESS=Your full street address
+VITE_BUSINESS_DISPLAY_ADDRESS=Your full display address
 ```
 
-7. Set the health check path to `/api/health`.
-8. Redeploy the service.
+8. Use the build command:
 
-### Custom domain
+```text
+npm install
+```
 
-After the Railway URL works, add your own custom domain in Railway and update `PUBLIC_SITE_URL` to that final domain.
+9. Use the start command:
 
-## Alternative: Render
+```text
+npm start
+```
 
-Render also works for this app, but the enquiry file storage needs a persistent disk because the default filesystem is ephemeral.
+## Health check
 
-Recommended Render settings:
+Use this path for health checks:
 
-- Service type: Web Service
-- Start command: `npm start`
-- Health check path: `/api/health`
-- Persistent disk mount path: `/opt/render/project/src/data`
+```text
+/api/health
+```
 
-If you deploy with Docker on Render, use `/app/data` as the disk mount path instead.
+## Notes
 
-## Important
-
-Without persistent storage, form enquiries can disappear after a restart or redeploy.
+- The frontend is built during `npm install` through the root `postinstall` script.
+- The backend serves the compiled React app in production.
+- Contact form submissions are stored in MongoDB through Mongoose.
+- Owner notifications are sent by email when the SMTP settings are configured.

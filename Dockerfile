@@ -3,14 +3,19 @@ FROM node:20-alpine
 WORKDIR /app
 
 COPY package.json ./
-COPY server.js ./
-COPY pragathi-wellness-centre.html ./
-COPY data ./data
-COPY assets ./assets
+COPY client/package.json ./client/package.json
+COPY server/package.json ./server/package.json
+
+RUN npm install
+
+COPY client ./client
+COPY server ./server
+
+RUN npm run build
 
 ENV NODE_ENV=production
-ENV PORT=3000
+ENV PORT=5000
 
-EXPOSE 3000
+EXPOSE 5000
 
-CMD ["npm", "start"]
+CMD ["npm", "run", "start"]

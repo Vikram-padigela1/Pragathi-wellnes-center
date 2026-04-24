@@ -1,36 +1,84 @@
 # Pragathi Wellness Centre
 
-Single-page website with a lightweight Node backend for local development and deployment.
+This repository now runs as a MERN stack website:
 
-## Run locally
+- `client/` contains the React frontend built with Vite
+- `server/` contains the Express API
+- `MongoDB Atlas` is the recommended database, connected through Mongoose
+
+## Stack
+
+- MongoDB Atlas
+- Express
+- React
+- Node.js
+
+## Local setup
+
+1. Copy `server/.env.example` to `server/.env`
+2. Add your MongoDB Atlas connection string to `MONGODB_URI`
+3. Add Gmail SMTP details so the owner gets enquiry emails
+4. Install everything from the project root:
+
+```bash
+npm install
+```
+
+5. Start the full MERN app in development:
+
+```bash
+npm run dev
+```
+
+Frontend: `http://localhost:5173`
+
+Backend: `http://localhost:5001`
+
+## Production build
+
+Build the React frontend:
+
+```bash
+npm run build
+```
+
+Start the backend:
 
 ```bash
 npm start
 ```
 
-Open `http://localhost:3000`.
+In production, Express serves the built React app from `client/dist`.
 
-## What the backend does
+## Main API route
 
-- Serves `pragathi-wellness-centre.html`
-- Handles `POST /api/enquiries`
-- Saves form submissions to `data/enquiries.json`
-- Exposes `GET /api/health`
-- Fills in the live site URL and business address at request time
+- `POST /api/enquiries` saves contact enquiries to MongoDB
+- `GET /api/health` checks backend health
 
-## Deployment notes
+## Environment values
 
-This app is ready for Railway or any Docker-friendly host.
+Set these in `server/.env`:
 
-- Recommended host: Railway
-- Required for persistent enquiries: attach a volume to `/app/data`
-- Health check path: `/api/health`
-- Public start command: `npm start`
+- `MONGODB_URI`
+- `PORT`
+- `CLIENT_URL`
+- `PUBLIC_SITE_URL`
+- `BUSINESS_STREET_ADDRESS`
+- `BUSINESS_DISPLAY_ADDRESS`
+- `OWNER_NOTIFICATION_EMAIL`
+- `SMTP_HOST`
+- `SMTP_PORT`
+- `SMTP_SECURE`
+- `SMTP_USER`
+- `SMTP_PASS`
+- `SMTP_FROM`
 
-Optional environment variables:
+Optional frontend build-time values for `client/.env`:
 
-- `PUBLIC_SITE_URL=https://your-domain.com`
-- `PUBLIC_OG_IMAGE=https://your-domain.com/assets/og-preview.svg`
-- `BUSINESS_STREET_ADDRESS=Your full street address`
-- `BUSINESS_DISPLAY_ADDRESS=Your display address for the contact section`
-- `DATA_DIR=/app/data`
+- `VITE_API_BASE_URL`
+- `VITE_PUBLIC_SITE_URL`
+- `VITE_PUBLIC_OG_IMAGE`
+- `VITE_BUSINESS_STREET_ADDRESS`
+- `VITE_BUSINESS_DISPLAY_ADDRESS`
+
+For Gmail, use an App Password for `SMTP_PASS`, not your normal Gmail password.
