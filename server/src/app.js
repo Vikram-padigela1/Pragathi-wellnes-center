@@ -13,6 +13,7 @@ const app = express();
 const clientDistPath = path.resolve(__dirname, "../../client/dist");
 const allowedOrigins = [
   "http://localhost:5173",
+  "https://pragathi-wellnes-center-client.vercel.app",
   process.env.CLIENT_URL,
   process.env.PUBLIC_SITE_URL,
 ].filter(Boolean);
