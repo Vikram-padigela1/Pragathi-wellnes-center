@@ -6,22 +6,17 @@ function envValue(name) {
 
 function isEmailConfigured() {
   return Boolean(
-    envValue("OWNER_NOTIFICATION_EMAIL") &&
-    envValue("SMTP_HOST") &&
-    envValue("SMTP_PORT") &&
-    envValue("SMTP_USER") &&
-    envValue("SMTP_PASS")
+    envValue("OWNER_EMAIL") &&
+    (envValue("EMAIL_PASS") || envValue("EMAIL_PASSWORD"))
   );
 }
 
 function createTransporter() {
   return nodemailer.createTransport({
-    host: envValue("SMTP_HOST"),
-    port: Number.parseInt(envValue("SMTP_PORT") || "465", 10),
-    secure: envValue("SMTP_SECURE") === "false" ? false : true,
+    service: 'gmail',
     auth: {
-      user: envValue("SMTP_USER"),
-      pass: envValue("SMTP_PASS"),
+      user: envValue("EMAIL_USER") || envValue("OWNER_EMAIL"),
+      pass: envValue("EMAIL_PASS") || envValue("EMAIL_PASSWORD"),
     },
   });
 }
@@ -35,8 +30,8 @@ async function sendEnquiryNotification(enquiry) {
   }
 
   const transporter = createTransporter();
-  const ownerEmail = envValue("OWNER_NOTIFICATION_EMAIL");
-  const fromEmail = envValue("SMTP_FROM") || envValue("SMTP_USER");
+  const ownerEmail = envValue("OWNER_EMAIL");
+  const fromEmail = envValue("EMAIL_USER") || envValue("OWNER_EMAIL");
   const submittedAt = enquiry.createdAt
     ? new Date(enquiry.createdAt).toLocaleString("en-IN", { timeZone: "Asia/Kolkata" })
     : new Date().toLocaleString("en-IN", { timeZone: "Asia/Kolkata" });

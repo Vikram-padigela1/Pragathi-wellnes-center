@@ -64,6 +64,9 @@ async function createEnquiry(request, response) {
   }
 
   const enquiry = validatePayload(request.body || {});
+  if (request.user) {
+    enquiry.userId = request.user._id;
+  }
   const savedEnquiry = await Enquiry.create(enquiry);
   const emailResult = await sendEnquiryNotification(savedEnquiry);
 
@@ -83,6 +86,18 @@ async function createEnquiry(request, response) {
   });
 }
 
+async function getMyEnquiries(request, response) {
+  const enquiries = await Enquiry.find({ userId: request.user._id }).sort({ createdAt: -1 });
+  response.status(200).json({ ok: true, enquiries });
+}
+
+async function getAllEnquiries(request, response) {
+  const enquiries = await Enquiry.find({}).sort({ createdAt: -1 }).populate("userId", "name email");
+  response.status(200).json({ ok: true, enquiries });
+}
+
 module.exports = {
   createEnquiry,
+  getMyEnquiries,
+  getAllEnquiries,
 };

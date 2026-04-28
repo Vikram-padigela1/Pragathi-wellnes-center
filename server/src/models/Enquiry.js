@@ -36,6 +36,11 @@ const enquirySchema = new mongoose.Schema(
       type: String,
       default: "website-contact-form",
     },
+    userId: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "User",
+      default: null,
+    },
   },
   {
     timestamps: true,

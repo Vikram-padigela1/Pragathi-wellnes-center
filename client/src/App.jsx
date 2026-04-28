@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useAuth } from "./contexts/AuthContext";
 import { siteContent } from "./siteData";
 import "./styles.css";
 
@@ -126,6 +127,7 @@ function ServiceGlyph({ kind }) {
 }
 
 function App() {
+  const { user, token } = useAuth();
   const [isDarkMode, setIsDarkMode] = useState(() => {
     const storedTheme = localStorage.getItem("pragathi-theme");
 
@@ -238,6 +240,7 @@ function App() {
         headers: {
           Accept: "application/json",
           "Content-Type": "application/json",
+          ...(token ? { Authorization: `Bearer ${token}` } : {})
         },
         body: JSON.stringify(formData),
       });
@@ -324,6 +327,15 @@ function App() {
             <a className="button button-primary header-call" href={`tel:${siteContent.phone}`}>
               Call Now
             </a>
+            {user ? (
+              <a className="button button-secondary header-call desktop-only" href="/dashboard" style={{ marginLeft: "10px" }}>
+                Dashboard
+              </a>
+            ) : (
+              <a className="button button-secondary header-call desktop-only" href="/login" style={{ marginLeft: "10px" }}>
+                Log in
+              </a>
+            )}
             <button
               className="theme-toggle"
               type="button"

@@ -1,6 +1,10 @@
 const dotenv = require("dotenv");
+const path = require("node:path");
 
-dotenv.config();
+dotenv.config({ path: path.join(__dirname, "../.env") });
+
+console.log("DEBUG: OWNER_EMAIL loaded as:", process.env.OWNER_EMAIL);
+console.log("DEBUG: EMAIL_PASS loaded as:", Boolean(process.env.EMAIL_PASS) ? "***" : "undefined");
 
 const app = require("./app");
 const { connectDatabase } = require("./config/db");
