@@ -14,6 +14,8 @@ const clientDistPath = path.resolve(__dirname, "../../client/dist");
 const allowedOrigins = [
   "http://localhost:5173",
   "https://pragathi-wellnes-center-client.vercel.app",
+  "https://www.pragathiwellnesscentre.com",
+  "https://pragathiwellnesscentre.com",
   process.env.CLIENT_URL,
   process.env.PUBLIC_SITE_URL,
 ].filter(Boolean);
