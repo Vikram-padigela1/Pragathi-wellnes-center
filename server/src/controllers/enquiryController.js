@@ -71,11 +71,10 @@ async function createEnquiry(request, response) {
   const emailResult = await sendEnquiryNotification(savedEnquiry);
 
   if (!emailResult.delivered) {
-    response.status(202).json({
+    console.warn("Note: Enquiry saved to DB, but email notification failed or is not configured.");
+    response.status(201).json({
       ok: true,
-      warning: true,
-      message:
-        "Your enquiry has been saved, but owner email notification is not configured yet.",
+      message: "Thanks for reaching out. Your enquiry has been safely received.",
     });
     return;
   }
