@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import { useAuth } from "./contexts/AuthContext";
 import { siteContent } from "./siteData";
 import "./styles.css";
 
@@ -127,7 +126,6 @@ function ServiceGlyph({ kind }) {
 }
 
 function App() {
-  const { user, token } = useAuth();
   const [isDarkMode, setIsDarkMode] = useState(() => {
     const storedTheme = localStorage.getItem("pragathi-theme");
 
@@ -240,7 +238,6 @@ function App() {
         headers: {
           Accept: "application/json",
           "Content-Type": "application/json",
-          ...(token ? { Authorization: `Bearer ${token}` } : {})
         },
         body: JSON.stringify(formData),
       });
@@ -323,15 +320,6 @@ function App() {
             <a className="button button-primary header-call" href={`tel:${siteContent.phone}`}>
               Call Now
             </a>
-            {user ? (
-              <a className="button button-secondary header-call desktop-only" href="/dashboard" style={{ marginLeft: "10px" }}>
-                Dashboard
-              </a>
-            ) : (
-              <a className="button button-secondary header-call desktop-only" href="/login" style={{ marginLeft: "10px" }}>
-                Log in
-              </a>
-            )}
             <button
               className="theme-toggle"
               type="button"
@@ -722,6 +710,14 @@ function App() {
           </div>
         </section>
       </main>
+
+      <section className="section disclaimer-section" style={{ backgroundColor: "var(--color-primary-light)", padding: "1.5rem 0", textAlign: "center", borderTop: "1px solid var(--color-border)" }}>
+        <div className="container">
+          <p style={{ margin: 0, color: "var(--color-primary-dark)", fontWeight: 500, fontSize: "0.95rem" }}>
+            Disclaimer: Pragathi Wellness Centre does not conduct any monetary transactions through this website. All payments are handled in person at our centre only. Please beware of fraudulent activities.
+          </p>
+        </div>
+      </section>
 
       <footer className="footer">
         <div className="container">

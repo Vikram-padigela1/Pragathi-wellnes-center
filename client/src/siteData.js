@@ -13,10 +13,10 @@ export const siteContent = {
     `${window.location.origin}/assets/logo.jpg`,
   businessDisplayAddress:
     import.meta.env.VITE_BUSINESS_DISPLAY_ADDRESS ||
-    "Pragatinagar, Hyderabad, Telangana",
+    "Vasavi Enclave, Samaruddhi Nivas, Pragathi Nagar, Nizampet, Hyderabad, Telangana - 500090",
   businessStreetAddress:
     import.meta.env.VITE_BUSINESS_STREET_ADDRESS ||
-    "Pragatinagar, Hyderabad, Telangana",
+    "Vasavi Enclave, Samaruddhi Nivas, Pragathi Nagar, Nizampet, Hyderabad, Telangana - 500090",
   apiBaseUrl: import.meta.env.VITE_API_BASE_URL || import.meta.env.VITE_API_URL || "https://pragathi-wellnes-center.onrender.com",
   services: [
     {
