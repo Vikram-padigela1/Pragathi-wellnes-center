@@ -17,7 +17,7 @@ export const siteContent = {
   businessStreetAddress:
     import.meta.env.VITE_BUSINESS_STREET_ADDRESS ||
     "Pragatinagar, Hyderabad, Telangana",
-  apiBaseUrl: import.meta.env.VITE_API_BASE_URL || "https://pragathi-wellnes-center.onrender.com",
+  apiBaseUrl: import.meta.env.VITE_API_BASE_URL || import.meta.env.VITE_API_URL || "https://pragathi-wellnes-center.onrender.com",
   services: [
     {
       key: "yoga",

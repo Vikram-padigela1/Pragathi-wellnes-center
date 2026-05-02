@@ -259,17 +259,13 @@ function App() {
           "Thanks for reaching out. Your enquiry has been received.",
       });
     } catch (error) {
-      const networkMessage =
-        error instanceof TypeError
-          ? "The enquiry API is not running yet. Start the backend and add server/.env with MongoDB and email settings."
-          : null;
-
+      console.error("Enquiry submission failed:", error);
+      
       setFormStatus({
         type: "error",
         message:
-          networkMessage ||
           error.message ||
-          "We could not send your enquiry right now. Please call 8143503689.",
+          "We could not connect to the server. Please try again or call 8143503689.",
       });
     } finally {
       setIsSubmitting(false);
