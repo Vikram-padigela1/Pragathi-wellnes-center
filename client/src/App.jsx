@@ -203,7 +203,7 @@ function App() {
     url: siteContent.publicSiteUrl,
     description:
       "Pragathi's Wellness Centre provides yoga and wellness services in Pragatinagar, including acupuncture, ayurveda, homeopathy, chiropractic, cupping therapy, bungee fitness, and massage.",
-    telephone: "+91-8143503689",
+    telephone: "+91-8143504689",
     email: siteContent.email,
     address: {
       "@type": "PostalAddress",
@@ -262,7 +262,7 @@ function App() {
         type: "error",
         message:
           error.message ||
-          "We could not connect to the server. Please try again or call 8143503689.",
+          "We could not connect to the server. Please try again or call 8143504689.",
       });
     } finally {
       setIsSubmitting(false);

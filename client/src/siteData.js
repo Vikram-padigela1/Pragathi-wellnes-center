@@ -1,7 +1,7 @@
 export const siteContent = {
   businessName: "Pragathi's Wellness Centre",
   businessSubtitle: "Yoga & holistic wellness care",
-  phone: "8143503689",
+  phone: "8143504689",
   email: "pragathiwellnesscentre@gmail.com",
   instagramUrl: "https://www.instagram.com/pragathis_wellness?igsh=MmYxOHYwNzNuam9u&utm_source=qr",
   instagramHandle: "@pragathis_wellness",
